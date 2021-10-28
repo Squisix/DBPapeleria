@@ -1,0 +1,116 @@
+	--Version 0.1 de la base de datos--
+
+	*Se creó la base de datos, la estructura se encuentra en el archivo pdf*
+
+--Tabla articulos:
++-----------------------+---------------+------+-----+---------+----------------+
+| Field                 | Type          | Null | Key | Default | Extra          |
++-----------------------+---------------+------+-----+---------+----------------+
+| id_articulo           | int           | NO   | PRI | NULL    | auto_increment |
+| codigobarras_articulo | varchar(50)   | YES  | UNI | NULL    |                |
+| id_proveedor          | int           | YES  | MUL | NULL    |                |
+| nombre_articulo       | varchar(50)   | NO   |     | NULL    |                |
+| marca_articulo        | varchar(50)   | NO   |     | NULL    |                |
+| existencia            | int           | NO   |     | NULL    |                |
+| precio                | decimal(10,2) | NO   |     | NULL    |                |
+| costo                 | decimal(10,2) | NO   |     | NULL    |                |
++-----------------------+---------------+------+-----+---------+----------------+
+--
+--Tabla clientes:
++------------------+--------------+------+-----+---------+----------------+
+| Field            | Type         | Null | Key | Default | Extra          |
++------------------+--------------+------+-----+---------+----------------+
+| id_cliente       | int          | NO   | PRI | NULL    | auto_increment |
+| nombre_cliente   | varchar(50)  | NO   |     | NULL    |                |
+| apellido_cliente | varchar(100) | NO   |     | NULL    |                |
+| telefono_cliente | int          | NO   |     | NULL    |                |
++------------------+--------------+------+-----+---------+----------------+ 
+--
+--Tabla proveedores:
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| id_proveedor       | int          | NO   | PRI | NULL    | auto_increment |
+| nombre_empresa     | varchar(50)  | NO   |     | NULL    |                |
+| nombre_proveedor   | varchar(50)  | NO   |     | NULL    |                |
+| apellido_proveedor | varchar(100) | NO   |     | NULL    |                |
+| numero_tel         | int          | NO   |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+--
+--Tabla entrada:
++------------+---------------+------+-----+-------------------+-------------------+
+| Field      | Type          | Null | Key | Default           | Extra             |
++------------+---------------+------+-----+-------------------+-------------------+
+| id_entrada | int           | NO   | PRI | NULL              | auto_increment    |
+| total      | decimal(10,2) | NO   |     | NULL              |                   |
+| fecha      | timestamp     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+---------------+------+-----+-------------------+-------------------+
+--
+--Tabla detalles_entrada:
++---------------------+---------------+------+-----+---------+----------------+
+| Field               | Type          | Null | Key | Default | Extra          |
++---------------------+---------------+------+-----+---------+----------------+
+| id_detalles_entrada | int           | NO   | PRI | NULL    | auto_increment |
+| id_entrada          | int           | NO   | MUL | NULL    |                |
+| costo_unitario      | decimal(10,2) | NO   |     | NULL    |                |
+| cantidad_entrada    | int           | NO   |     | NULL    |                |
+| id_articulo         | int           | NO   | MUL | NULL    |                |
++---------------------+---------------+------+-----+---------+----------------+
+--
+--Tabla venta:
++--------------+----------------------------+------+-----+-------------------+-------------------+
+| Field        | Type                       | Null | Key | Default           | Extra             |
++--------------+----------------------------+------+-----+-------------------+-------------------+
+| id_venta     | int                        | NO   | PRI | NULL              | auto_increment    |
+| id_cliente   | int                        | YES  | MUL | NULL              |                   |
+| estado_venta | enum('pagado','por_pagar') | YES  |     | pagado            |                   |
+| total        | decimal(10,2)              | NO   |     | NULL              |                   |
+| adeudo       | decimal(10,2)              | YES  |     | 0.00              |                   |
+| fecha        | timestamp                  | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++--------------+----------------------------+------+-----+-------------------+-------------------+
+--
+--Tabla detalles_venta:
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| id_detalles_venta | int           | NO   | PRI | NULL    | auto_increment |
+| id_venta          | int           | NO   | MUL | NULL    |                |
+| costo_unitario    | decimal(10,2) | NO   |     | NULL    |                |
+| precio_unitario   | decimal(10,2) | NO   |     | NULL    |                |
+| cantidad          | int           | NO   |     | NULL    |                |
+| id_articulo       | int           | NO   | MUL | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+--
+--Tabla perdida:
++------------+---------------+------+-----+-------------------+-------------------+
+| Field      | Type          | Null | Key | Default           | Extra             |
++------------+---------------+------+-----+-------------------+-------------------+
+| id_perdida | int           | NO   | PRI | NULL              | auto_increment    |
+| total      | decimal(10,2) | NO   |     | NULL              |                   |
+| fecha      | timestamp     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++------------+---------------+------+-----+-------------------+-------------------+
+--
+--Tabla detalles_perdida;
++---------------------+---------------+------+-----+---------+----------------+
+| Field               | Type          | Null | Key | Default | Extra          |
++---------------------+---------------+------+-----+---------+----------------+
+| id_detalles_perdida | int           | NO   | PRI | NULL    | auto_increment |
+| id_perdida          | int           | NO   | MUL | NULL    |                |
+| costo_unitario      | decimal(10,2) | NO   |     | NULL    |                |
+| cantidad_perdida    | int           | NO   |     | NULL    |                |
+| id_articulo         | int           | NO   | MUL | NULL    |                |
++---------------------+---------------+------+-----+---------+----------------+
+--
+
+
+#Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#	new file:   DBPapeleriav0.1.pdf
+#	new file:   papeleria.sql
+#
