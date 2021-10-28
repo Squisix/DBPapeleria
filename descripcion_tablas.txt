@@ -1,6 +1,12 @@
-	--Version 0.1 de la base de datos--
+	--Version 0.2 de la base de datos--
 
-	*Se creÃ³ la base de datos, la estructura se encuentra en el archivo pdf*
+	*Se añadieron dos tablas: categorias, unidades_venta*
+	*se añadieron dos columnas a la tabla <articulos>: id_categoria,
+	id_unidad_venta* 
+	 *Se modifico el tipo de dato de los campos correspondientes a 
+	las cantidades de los productos de entero a flotante*
+	
+	*La estructura de la DB se encuentra en el archivo pdf*
 
 --Tabla articulos:
 +-----------------------+---------------+------+-----+---------+----------------+
@@ -10,8 +16,10 @@
 | codigobarras_articulo | varchar(50)   | YES  | UNI | NULL    |                |
 | id_proveedor          | int           | YES  | MUL | NULL    |                |
 | nombre_articulo       | varchar(50)   | NO   |     | NULL    |                |
+| id_categoria          | int           | NO   | MUL | NULL    |                |<- Columna creada
+| id_unidad_venta       | int           | NO   | MUL | NULL    |                |<- Columna creada
 | marca_articulo        | varchar(50)   | NO   |     | NULL    |                |
-| existencia            | int           | NO   |     | NULL    |                |
+| existencia            | float         | NO   |     | NULL    |                |-> Tipo de dato en la columna cambiada
 | precio                | decimal(10,2) | NO   |     | NULL    |                |
 | costo                 | decimal(10,2) | NO   |     | NULL    |                |
 +-----------------------+---------------+------+-----+---------+----------------+
@@ -53,7 +61,7 @@
 | id_detalles_entrada | int           | NO   | PRI | NULL    | auto_increment |
 | id_entrada          | int           | NO   | MUL | NULL    |                |
 | costo_unitario      | decimal(10,2) | NO   |     | NULL    |                |
-| cantidad_entrada    | int           | NO   |     | NULL    |                |
+| cantidad_entrada    | float         | NO   |     | NULL    |                |->Tipo de dato en la columna cambiada
 | id_articulo         | int           | NO   | MUL | NULL    |                |
 +---------------------+---------------+------+-----+---------+----------------+
 --
@@ -77,7 +85,7 @@
 | id_venta          | int           | NO   | MUL | NULL    |                |
 | costo_unitario    | decimal(10,2) | NO   |     | NULL    |                |
 | precio_unitario   | decimal(10,2) | NO   |     | NULL    |                |
-| cantidad          | int           | NO   |     | NULL    |                |
+| cantidad          | float         | NO   |     | NULL    |                |->Tipo de dato en la columna cambiado
 | id_articulo       | int           | NO   | MUL | NULL    |                |
 +-------------------+---------------+------+-----+---------+----------------+
 --
@@ -97,9 +105,24 @@
 | id_detalles_perdida | int           | NO   | PRI | NULL    | auto_increment |
 | id_perdida          | int           | NO   | MUL | NULL    |                |
 | costo_unitario      | decimal(10,2) | NO   |     | NULL    |                |
-| cantidad_perdida    | int           | NO   |     | NULL    |                |
+| cantidad_perdida    | float         | NO   |     | NULL    |                |->Tipo de dato en la columna cambiado
 | id_articulo         | int           | NO   | MUL | NULL    |                |
 +---------------------+---------------+------+-----+---------+----------------+
 --
-
-
+--Tabla categoras; 								<-- Tabla creada
++------------------+-------------+------+-----+---------+----------------+
+| Field            | Type        | Null | Key | Default | Extra          |
++------------------+-------------+------+-----+---------+----------------+
+| id_categorias    | int         | NO   | PRI | NULL    | auto_increment |
+| nombre_categoria | varchar(50) | NO   | UNI | NULL    |                |
++------------------+-------------+------+-----+---------+----------------+
+--
+--Tabla unidades_venta 								<-- Tabla creada
++---------------------+-------------+------+-----+---------+----------------+
+| Field               | Type        | Null | Key | Default | Extra          |
++---------------------+-------------+------+-----+---------+----------------+
+| id_unidad_venta     | int         | NO   | PRI | NULL    | auto_increment |
+| nombre_unidad_venta | varchar(50) | NO   | UNI | NULL    |                |
++---------------------+-------------+------+-----+---------+----------------+
+--
+--

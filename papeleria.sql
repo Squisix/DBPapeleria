@@ -27,14 +27,20 @@ CREATE TABLE `articulos` (
   `codigobarras_articulo` varchar(50) DEFAULT NULL,
   `id_proveedor` int DEFAULT NULL,
   `nombre_articulo` varchar(50) NOT NULL,
+  `id_categoria` int NOT NULL,
+  `id_unidad_venta` int NOT NULL,
   `marca_articulo` varchar(50) NOT NULL,
-  `existencia` int NOT NULL,
+  `existencia` float NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `costo` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id_articulo`),
   UNIQUE KEY `codigobarras_articulo` (`codigobarras_articulo`),
   KEY `id_proveedor` (`id_proveedor`),
-  CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`) ON DELETE CASCADE
+  KEY `id_categoria` (`id_categoria`),
+  KEY `id_unidad_venta` (`id_unidad_venta`),
+  CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`) ON DELETE CASCADE,
+  CONSTRAINT `articulos_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categorias`) ON DELETE CASCADE,
+  CONSTRAINT `articulos_ibfk_3` FOREIGN KEY (`id_unidad_venta`) REFERENCES `unidades_venta` (`id_unidad_venta`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,6 +51,30 @@ CREATE TABLE `articulos` (
 LOCK TABLES `articulos` WRITE;
 /*!40000 ALTER TABLE `articulos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `articulos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categorias`
+--
+
+DROP TABLE IF EXISTS `categorias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categorias` (
+  `id_categorias` int NOT NULL AUTO_INCREMENT,
+  `nombre_categoria` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_categorias`),
+  UNIQUE KEY `nombre_categoria` (`nombre_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categorias`
+--
+
+LOCK TABLES `categorias` WRITE;
+/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -83,7 +113,7 @@ CREATE TABLE `detalles_entrada` (
   `id_detalles_entrada` int NOT NULL AUTO_INCREMENT,
   `id_entrada` int NOT NULL,
   `costo_unitario` decimal(10,2) NOT NULL,
-  `cantidad_entrada` int NOT NULL,
+  `cantidad_entrada` float NOT NULL,
   `id_articulo` int NOT NULL,
   PRIMARY KEY (`id_detalles_entrada`),
   KEY `id_entrada` (`id_entrada`),
@@ -113,7 +143,7 @@ CREATE TABLE `detalles_perdida` (
   `id_detalles_perdida` int NOT NULL AUTO_INCREMENT,
   `id_perdida` int NOT NULL,
   `costo_unitario` decimal(10,2) NOT NULL,
-  `cantidad_perdida` int NOT NULL,
+  `cantidad_perdida` float NOT NULL,
   `id_articulo` int NOT NULL,
   PRIMARY KEY (`id_detalles_perdida`),
   KEY `id_perdida` (`id_perdida`),
@@ -144,7 +174,7 @@ CREATE TABLE `detalles_venta` (
   `id_venta` int NOT NULL,
   `costo_unitario` decimal(10,2) NOT NULL,
   `precio_unitario` decimal(10,2) NOT NULL,
-  `cantidad` int NOT NULL,
+  `cantidad` float NOT NULL,
   `id_articulo` int NOT NULL,
   PRIMARY KEY (`id_detalles_venta`),
   KEY `id_venta` (`id_venta`),
@@ -238,6 +268,30 @@ LOCK TABLES `proveedores` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `unidades_venta`
+--
+
+DROP TABLE IF EXISTS `unidades_venta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `unidades_venta` (
+  `id_unidad_venta` int NOT NULL AUTO_INCREMENT,
+  `nombre_unidad_venta` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_unidad_venta`),
+  UNIQUE KEY `nombre_unidad_venta` (`nombre_unidad_venta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unidades_venta`
+--
+
+LOCK TABLES `unidades_venta` WRITE;
+/*!40000 ALTER TABLE `unidades_venta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `unidades_venta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `venta`
 --
 
@@ -275,4 +329,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-27 20:39:19
+-- Dump completed on 2021-10-28  3:15:19
