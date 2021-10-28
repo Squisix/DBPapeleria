@@ -1,0 +1,7 @@
+------------------	27/10/2021       -------------------------------------------------------
+-		*Actualizar la base de datos:
+-			-Agregaar tabla: categorias, unidades_venta
+-			-Agregar columnas: id_categoria, id_unidad_venta en tabla: productos
+-			-Cambiar tipo de dato de la columna cantidad de las diferentes tablas
+-			al tipo de dato float
+------------------------------------------------------------------------------------------------ 
